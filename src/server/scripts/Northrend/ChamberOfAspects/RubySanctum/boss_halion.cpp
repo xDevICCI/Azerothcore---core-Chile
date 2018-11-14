@@ -59,6 +59,9 @@ enum Spells
     SPELL_SOUL_CONSUMPTION_SUMMON       = 74800,
     SPELL_CONSUMPTION_DAMAGE_AURA       = 74803,
 
+    // Living Inferno
+    SPELL_BLAZING_AURA                  = 75885,
+
     // Meteor Strike
     SPELL_METEOR_STRIKE                 = 74637,
     SPELL_SUMMON_METEOR_STRIKE1         = 74680,
