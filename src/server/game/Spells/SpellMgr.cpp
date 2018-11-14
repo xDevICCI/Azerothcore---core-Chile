@@ -5716,6 +5716,7 @@ void SpellMgr::LoadDbcDataCorrections()
         case 69030: // Val'kyr Target Search
             spellInfo->EffectRadiusIndex[0] = EFFECT_RADIUS_200_YARDS;   // 200yd
             spellInfo->EffectRadiusIndex[1] = EFFECT_RADIUS_200_YARDS;   // 200yd
+            spellInfo->Attributes |= SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY; // abusaban de corona paladin a cualquier player || FIXEADO
             break;
         case 73654: // Harvest Souls
         case 74295: // Harvest Souls
@@ -5834,6 +5835,10 @@ void SpellMgr::LoadDbcDataCorrections()
         case 74637:
             spellInfo->speed = 0;
             break;
+        case 75952:
+        case 74629:
+        case 75885: //id para blazing aura
+            spellInfo->AttributesEx4 &= ~SPELL_ATTR4_IGNORE_RESISTANCES;
 
 
         // ///////////////////////////////////////////
