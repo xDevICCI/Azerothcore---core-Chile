@@ -4202,6 +4202,16 @@ void SpellMgr::LoadDbcDataCorrections()
             spellInfo->EffectImplicitTargetA[EFFECT_2] = TARGET_UNIT_TARGET_ALLY;
             break;
 
+        // Silent Resolve ||  Resolución silenciosa
+        case 14523: //rank 1 silent resolve
+        case 14784: //rank 2 silent resolve
+        case 14785: //rank 3 silent resolve
+            spellInfo->EffectApplyAuraName[EFFECT_1] = SPELL_AURA_MOD_THREAT; // effect 1
+            spellInfo->EffectApplyAuraName[EFFECT_1] = SPELL_AURA_ADD_FLAT_MODIFIER; //effect 2
+            spellInfo->EffectApplyAuraName[EFFECT_1] = SPELL_AURA_ADD_PCT_MODIFIER; //effect 3
+            break;
+
+
 
 
         /////////////////////////////////
