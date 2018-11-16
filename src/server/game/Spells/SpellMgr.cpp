@@ -4849,7 +4849,6 @@ void SpellMgr::LoadDbcDataCorrections()
         // Shadow Beacon
         case 64465:
             spellInfo->EffectTriggerSpell[0] = 64467; // why do they need two script effects :/ (this one has visual effect)
-            spellInfo->EffectTriggerSpell[0] = 64466; //www.wowhead.com/spell=64466/empowering-shadows
             spellInfo->EffectTriggerSpell[1] = 64466; //www.wowhead.com/spell=64466/empowering-shadows
             break;
         // Sanity
