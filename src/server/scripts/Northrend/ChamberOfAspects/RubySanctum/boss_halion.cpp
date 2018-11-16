@@ -787,6 +787,9 @@ class npc_orb_carrier : public CreatureScript
         }
 };
 
+
+
+
 class spell_halion_meteor_strike_targeting : public SpellScriptLoader
 {
     public:
