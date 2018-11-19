@@ -658,6 +658,7 @@ class npc_halion_controller : public CreatureScript
                 }
             }
 
+            //fix-> el % maximo era 60%, ahora con el fix sube ! 
         private:
             void UpdateCorporeality()
             {
@@ -670,22 +671,29 @@ class npc_halion_controller : public CreatureScript
                 uint8 oldValue = _corporeality;
                 float damageRatio = float(_materialDamage) / float(_twilightDamage);
 
-                if (_twilightDamage == 1 || _materialDamage == 1)
+                if (_twilightDamage == 0 || _materialDamage == 0)
                     _events.ScheduleEvent(EVENT_TWILIGHT_MENDING, 4000);
 
-                _twilightDamage = 1;
-                _materialDamage = 1;
+                _twilightDamage = 0;
+                _materialDamage = 0;
 
                 CorporealityEvent action = CORPOREALITY_NONE;
-                if (damageRatio < 0.98f)
-                    action = CORPOREALITY_INCREASE;
-                else if (1.02f < damageRatio)
-                    action = CORPOREALITY_DECREASE;
-                else
-                    return;
+                if (damageRatio < 0.98f) // [0   , 0.98[: la corporalidad baja
+                    action = CORPOREALITY_DECREASE; //antiguamente->increase
+                else if (0.99f < damageRatio && damageRatio < 1.01f) // ]0.99, 1.01[: Twilight Mending
+                    action = CORPOREALITY_TWILIGHT_MENDING; 
+                else if (1.02f < damageRatio) // ]1.02, +oo [: la corporalidad sube
+                    action = CORPOREALITY_INCREASE; // antiguamente -> decrease
 
                 switch (action)
                 {
+                    //faltaba esto
+                    case CORPOREALITY_NONE:
+                    {
+                        _materialDamage = 0;
+                        _twilightDamage = 0;
+                        return;
+                    }
                     case CORPOREALITY_INCREASE:
                     {
                         if (_corporeality == (MAX_CORPOREALITY_STATE - 1))
@@ -695,7 +703,7 @@ class npc_halion_controller : public CreatureScript
                     }
                     case CORPOREALITY_DECREASE:
                     {
-                        if (_corporeality == 0)
+                        if (_corporeality <= 0)// era  == 0
                             return;
                         --_corporeality;
                         break;
