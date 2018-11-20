@@ -4128,7 +4128,7 @@ void SpellMgr::LoadDbcDataCorrections()
             break;
         // Damage Shield
         case 59653:
-            spellInfo->DmgClass = SPELL_DAMAGE_CLASS_MAGIC;
+            spellInfo->DmgClass = SPELL_DAMAGE_CLASS_MELEE; // antiguamente era -> SPELL_DAMAGE_CLASS_MAGIC
             spellInfo->spellLevel = 0;
             break;
         // Strange shared cooldown
