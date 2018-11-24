@@ -17,6 +17,7 @@
 ArenaTeamMgr::ArenaTeamMgr()
 {
     NextArenaTeamId = 1;
+    NextTempArenaTeamId = 0xFFF00000;
     LastArenaLogId = 0;
 }
 
@@ -69,14 +70,23 @@ void ArenaTeamMgr::RemoveArenaTeam(uint32 arenaTeamId)
     ArenaTeamStore.erase(arenaTeamId);
 }
 
+
 uint32 ArenaTeamMgr::GenerateArenaTeamId()
 {
-    if (NextArenaTeamId >= 0xFFFFFFFE)
+    //if (NextArenaTeamId >= 0xFFFFFFFE)
+    if (NextArenaTeamId >= 0xFFF00000)
     {
-        sLog->outError("Arena team ids overflow!! Can't continue, shutting down server. ");
+        //sLog->outError(LOG_FILTER_BATTLEGROUND, "Arena team ids overflow!! Can't continue, shutting down server.");
         World::StopNow(ERROR_EXIT_CODE);
     }
     return NextArenaTeamId++;
+}
+
+uint32 ArenaTeamMgr::GenerateTempArenaTeamId()
+{
+    if (NextTempArenaTeamId >= 0xFFFFFFFE)
+        NextTempArenaTeamId = 0xFFF00000;
+    return NextTempArenaTeamId++;
 }
 
 void ArenaTeamMgr::LoadArenaTeams()
@@ -88,7 +98,7 @@ void ArenaTeamMgr::LoadArenaTeams()
 
     //                                                        0        1         2         3          4              5            6            7           8
     QueryResult result = CharacterDatabase.Query("SELECT arenaTeamId, name, captainGuid, type, backgroundColor, emblemStyle, emblemColor, borderStyle, borderColor, "
-    //      9        10        11         12           13       14
+        //      9        10        11         12           13       14
         "rating, weekGames, weekWins, seasonGames, seasonWins, rank FROM arena_team ORDER BY arenaTeamId ASC");
 
     if (!result)
@@ -121,8 +131,7 @@ void ArenaTeamMgr::LoadArenaTeams()
         AddArenaTeam(newArenaTeam);
 
         ++count;
-    }
-    while (result->NextRow());
+    } while (result->NextRow());
 
     sLog->outString(">> Loaded %u arena teams in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
     sLog->outString();
