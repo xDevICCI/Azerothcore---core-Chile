@@ -1439,6 +1439,8 @@ void Unit::CalculateMeleeDamage(Unit* victim, uint32 damage, CalcDamageInfo* dam
         damageInfo->procVictim |= PROC_FLAG_TAKEN_DAMAGE;
         // Calculate absorb & resists
         Unit::CalcAbsorbResist(this, damageInfo->target, SpellSchoolMask(damageInfo->damageSchoolMask), DIRECT_DAMAGE, damageInfo->damage, &damageInfo->absorb, &damageInfo->resist);
+        damageInfo->absorb = dmgInfo.GetAbsorb();//esto no estaba
+        damageInfo->resist = dmgInfo.GetResist();//esto no estaba
 
         if (damageInfo->absorb)
         {
@@ -1803,6 +1805,8 @@ void Unit::CalcAbsorbResist(Unit* attacker, Unit* victim, SpellSchoolMask school
 
     // Ignore Absorption Auras
     float auraAbsorbMod = 0;
+    if (attacker)
+    {
         AuraEffectList const& AbsIgnoreAurasA = attacker->GetAuraEffectsByType(SPELL_AURA_MOD_TARGET_ABSORB_SCHOOL);
         for (AuraEffectList::const_iterator itr = AbsIgnoreAurasA.begin(); itr != AbsIgnoreAurasA.end(); ++itr)
         {
@@ -1823,9 +1827,7 @@ void Unit::CalcAbsorbResist(Unit* attacker, Unit* victim, SpellSchoolMask school
                 auraAbsorbMod = float((*itr)->GetAmount());
         }
         RoundToInterval(auraAbsorbMod, 0.0f, 100.0f);
-
-        uint32 absorbIgnoringDamage = CalculatePct(dmgInfo.GetDamage(), auraAbsorbMod);
-        dmgInfo.ModifyDamage(-absorbIgnoringDamage);
+    }
 
     // We're going to call functions which can modify content of the list during iteration over it's elements
     // Let's copy the list so we can prevent iterator invalidation
@@ -1862,6 +1864,8 @@ void Unit::CalcAbsorbResist(Unit* attacker, Unit* victim, SpellSchoolMask school
         // absorb must be smaller than the damage itself
         currentAbsorb = RoundToInterval(currentAbsorb, 0, int32(dmgInfo.GetDamage()));
 
+        // xinef: do this after absorb is rounded to damage...
+        AddPct(currentAbsorb, -auraAbsorbMod);
 
         dmgInfo.AbsorbDamage(currentAbsorb);
 
@@ -1911,6 +1915,8 @@ void Unit::CalcAbsorbResist(Unit* attacker, Unit* victim, SpellSchoolMask school
         // absorb must be smaller than the damage itself
         currentAbsorb = RoundToInterval(currentAbsorb, 0, int32(dmgInfo.GetDamage()));
 
+        // xinef: do this after absorb is rounded to damage...
+        AddPct(currentAbsorb, -auraAbsorbMod);
 
         int32 manaReduction = currentAbsorb;
 
@@ -1936,8 +1942,6 @@ void Unit::CalcAbsorbResist(Unit* attacker, Unit* victim, SpellSchoolMask school
                 absorbAurEff->GetBase()->Remove(AURA_REMOVE_BY_ENEMY_SPELL);
         }
     }
-
-    dmgInfo.ModifyDamage(absorbIgnoringDamage);
 
     // split damage auras - only when not damaging self
     // Xinef: not true - Warlock Hellfire
