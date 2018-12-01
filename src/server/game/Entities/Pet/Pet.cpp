@@ -910,8 +910,19 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
                 }
                 case NPC_FERAL_SPIRIT:
                 {
-                    SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float(petlevel * 4.0f - petlevel));
-                    SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float(petlevel * 4.0f + petlevel));
+                    if (!pInfo)
+
+                        SetCreateHealth(30 * petlevel);
+
+                    // wolf attack speed is 1.5s
+
+                    SetAttackTime(BASE_ATTACK, cinfo->baseattacktime);
+
+                    SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float((petlevel * 4 - petlevel)));
+                    SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float((petlevel * 4 + petlevel)));
+
+                    SetModifierValue(UNIT_MOD_ARMOR, BASE_VALUE, float(GetOwner()->GetArmor()) * 0.35f);  // Bonus Armor (35% of player armor)
+                    SetModifierValue(UNIT_MOD_STAT_STAMINA, BASE_VALUE, float(GetOwner()->GetStat(STAT_STAMINA)) * 0.3f);  // Bonus Stamina (30% of player stamina)
 
                     AddAura(SPELL_PET_AVOIDANCE, this);
                     AddAura(SPELL_FERAL_SPIRIT_SPIRIT_HUNT, this);
