@@ -3732,6 +3732,11 @@ void SpellMgr::LoadDbcDataCorrections()
             break;
 
 
+        case 1543: // Flare  // wotlk.cavernoftime.com/spell=1543
+            spellInfo->EffectRadiusIndex[0] = EFFECT_RADIUS_10_YARDS;
+            spellInfo->EffectRadiusIndex[1] = EFFECT_RADIUS_10_YARDS;
+            spellInfo->speed = 100;
+            break;
 
         /////////////////////////////////
         ///// ROGUE
