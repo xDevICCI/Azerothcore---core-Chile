@@ -143,6 +143,9 @@ enum UlduarNPCs
     NPC_ALGALON_STALKER_ASTEROID_TARGET_01  = 33104,
     NPC_ALGALON_STALKER_ASTEROID_TARGET_02  = 33105,
     NPC_UNLEASHED_DARK_MATTER               = 34097,
+
+    //Mobs Faltantes
+    NPC_MARKED_IMMORTAL_GUARDIAN            = 36064,
 };
 
 enum UlduarGameObjects
