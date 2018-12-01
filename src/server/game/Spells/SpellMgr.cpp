@@ -3978,8 +3978,23 @@ void SpellMgr::LoadDbcDataCorrections()
         case 18754:
         case 18755:
         case 18756:
+        case 18754: // wotlk.cavernoftime.com/spell=18754
+            spellInfo->EffectApplyAuraName[0] = SPELL_AURA_ADD_FLAT_MODIFIER;    // it's affects duration of seduction, let's minimize affection 
+            spellInfo->EffectBasePoints[0] = -1.5*IN_MILLISECONDS*0.22;           // reduce cast time of seduction by 22%  
+            spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_CASTER;
+
+        case 18755: // wotlk.cavernoftime.com/spell=18755
+            spellInfo->EffectApplyAuraName[0] = SPELL_AURA_ADD_FLAT_MODIFIER;
+            spellInfo->EffectBasePoints[0] = -1.5*IN_MILLISECONDS*0.44;           //  reduce cast time of seduction by 44% 
             spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_CASTER;
             break;
+
+        case 18756: // wotlk.cavernoftime.com/spell=18756
+            spellInfo->EffectApplyAuraName[0] = SPELL_AURA_ADD_FLAT_MODIFIER;
+            spellInfo->EffectBasePoints[0] = -1.5*IN_MILLISECONDS*0.66;           //  reduce cast time of seduction by 66% 
+            spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_CASTER;
+            break;
+
         // Unstable Affliction
         case 31117:
             spellInfo->PreventionType = SPELL_PREVENTION_TYPE_NONE;
