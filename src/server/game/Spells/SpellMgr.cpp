@@ -3983,9 +3983,6 @@ void SpellMgr::LoadDbcDataCorrections()
         ///// WARLOCK
         /////////////////////////////////
         // Improved Succubus
-        case 18754:
-        case 18755:
-        case 18756:
         case 18754: // wotlk.cavernoftime.com/spell=18754
             spellInfo->EffectApplyAuraName[0] = SPELL_AURA_ADD_FLAT_MODIFIER;    // it's affects duration of seduction, let's minimize affection 
             spellInfo->EffectBasePoints[0] = -1.5*IN_MILLISECONDS*0.22;           // reduce cast time of seduction by 22%  
