@@ -4969,7 +4969,7 @@ void SpellMgr::LoadDbcDataCorrections()
         case 49838:
             spellInfo->AttributesEx3 |= SPELL_ATTR3_NO_INITIAL_AGGRO;
             spellInfo->excludeTargetAuraSpell = 51162; // exclude planar shift
-            spellInfo->EffectRadiusIndex[EFFECT_0] = EFFECT_RADIUS_150_YARDS;
+            spellInfo->EffectRadiusIndex[EFFECT_0] = EFFECT_RADIUS_200_YARDS; //wotlk.cavernoftime.com/spell=49838
             break;
         // Oculus, Varos Cloudstrider, Energize Cores
         case 61407:
