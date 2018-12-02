@@ -8505,7 +8505,18 @@ void Player::CastItemCombatSpell(Unit* target, WeaponAttackType attType, uint32 
             
             if (spellData.SpellPPMRate)
             {
-
+                if (spellData.SpellId == 52781) // Persuasive Strike
+                {
+                    switch (target->GetEntry())
+                    {
+                    default:
+                        return;
+                    case 28939:
+                    case 28940:
+                    case 28610:
+                        break;
+                    }
+                }
                 uint32 WeaponSpeed = GetAttackTime(attType);
                 chance = GetPPMProcChance(WeaponSpeed, spellData.SpellPPMRate, spellInfo);
             }
