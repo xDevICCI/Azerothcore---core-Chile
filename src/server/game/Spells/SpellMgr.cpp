@@ -3315,6 +3315,7 @@ void SpellMgr::LoadDbcDataCorrections()
         case 42611: // Shoot
         case 61588: // Blazing Harpoon
         case 36327: // Shoot Arcane Explosion Arrow
+        case 62016: // Charge Orb wotlk.cavernoftime.com/spell=62016
             spellInfo->MaxAffectedTargets = 1;
             break;
         case 36384: // Skartax Purple Beam
@@ -3325,6 +3326,11 @@ void SpellMgr::LoadDbcDataCorrections()
         case 66588: // Flaming Spear
         case 54171: // Divine Storm
             spellInfo->MaxAffectedTargets = 3;
+            break;
+        case 63130: // Shield Level 1 www.wowhead.com/spell=63130/shield-level-1
+        case 63131: // Shield Level 2 www.wowhead.com/spell=63131/shield-level-2
+        case 63132: // Shield Level 3 www.wowhead.com/spell=63132/shield-level-3
+            spellInfo->EffectBasePoints[0] = 66482; // wotlk.cavernoftime.com/spell=66482
             break;
         case 53385: // Divine Storm (Damage)
             spellInfo->MaxAffectedTargets = 4;
@@ -3875,6 +3881,7 @@ void SpellMgr::LoadDbcDataCorrections()
             break;
         // Death Pact
         case 48743:
+        case 70940: // Divine Guardian
             spellInfo->AttributesEx &= ~SPELL_ATTR1_CANT_TARGET_SELF;
             break;
         // Raise Ally (trigger)
@@ -3979,6 +3986,17 @@ void SpellMgr::LoadDbcDataCorrections()
         case 2825:  // Bloodlust
             spellInfo->excludeTargetAuraSpell = 57724; // Sated
             spellInfo->AttributesEx2 |= SPELL_ATTR2_CAN_TARGET_NOT_IN_LOS;
+            break;
+        case 52025:    // Cleansing Totem Effect
+            spellInfo->EffectDieSides[1] = 1;
+            break;
+        case 30672: // Elemental Precision (Rank 1)
+        case 30673: // Elemental Precision (Rank 2)
+        case 30674: // Elemental Precision (Rank 3)
+            spellInfo->EffectMiscValue[1] = 4;
+            break;
+        case 62099: // Shamanism
+            spellInfo->EffectImplicitTargetA[2] = TARGET_UNIT_CASTER;
             break;
 
         /////////////////////////////////
@@ -4180,6 +4198,7 @@ void SpellMgr::LoadDbcDataCorrections()
         // Improved Spell Reflection
         case 59725:
             spellInfo->EffectImplicitTargetA[EFFECT_0] = TARGET_UNIT_CASTER_AREA_PARTY;
+            spellInfo->EffectRadiusIndex[0] = EFFECT_RADIUS_10_YARDS_2;
             break;
         case 46968: // ShockWave wotlk.cavernoftime.com/spell=46968
             spellInfo->EffectRadiusIndex[0] = EFFECT_RADIUS_10_YARDS; // 10yds
@@ -4227,6 +4246,10 @@ void SpellMgr::LoadDbcDataCorrections()
             spellInfo->EffectApplyAuraName[EFFECT_2] = SPELL_AURA_ADD_PCT_MODIFIER;
             spellInfo->EffectImplicitTargetA[EFFECT_2] = TARGET_UNIT_TARGET_ALLY;
             break;
+        case 15237: // Holy Nova
+            spellInfo->EffectRadiusIndex[0] = 9;
+            spellInfo->EffectRadiusIndex[1] = 9;
+            break;
 
 
 
@@ -4266,6 +4289,15 @@ void SpellMgr::LoadDbcDataCorrections()
         // Glyph of Barkskin
         case 63058:
             spellInfo->EffectApplyAuraName[EFFECT_0] = SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_CHANCE;
+            break;
+            // wotlk.cavernoftime.com/spell=17004
+        case 17005: // Heart of the Wild rank 3
+        case 17004: // Heart of the Wild rank 2
+        case 17003: // Heart of the Wild rank 1
+            spellInfo->EffectMiscValue[0] = 3;
+            break;
+        case 22842: //Frenzied regeneration -> wotlk.cavernoftime.com/spell=22842
+            spellInfo->EffectApplyAuraName[1] = SPELL_AURA_MOD_INCREASE_HEALTH_PERCENT;
             break;
 
 
