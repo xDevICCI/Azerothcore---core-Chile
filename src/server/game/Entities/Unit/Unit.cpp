@@ -7029,7 +7029,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 {
                     if (!victim || !victim->IsAlive() || victim->HasSpellCooldown(20267))
                         return false;
-                    // 2% of base mana
+                    // 2% of maximum health
                     basepoints0 = int32(victim->CountPctFromMaxHealth(2));
                     victim->CastCustomSpell(victim, 20267, &basepoints0, 0, 0, true, 0, triggeredByAura);
                     victim->AddSpellCooldown(20267, 0, 4*IN_MILLISECONDS);
