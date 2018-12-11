@@ -5805,6 +5805,15 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
         {
             switch (dummySpell->Id)
             {
+                //Eye for an Eye
+            case 9799: // wotlk.cavernoftime.com/spell=9799
+            case 25988://wotlk.cavernoftime.com/spell=25988
+            {
+                // return damage % to attacker but < 50% own total health
+                basepoints0 = int32(std::min(CalculatePct(damage, triggerAmount), CountPctFromMaxHealth(50)));
+                triggered_spell_id = 25997;
+                break;
+            }
                 // Overkill
                 case 58426:
                 {
