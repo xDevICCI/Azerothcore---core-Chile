@@ -13,6 +13,9 @@
 class Creature;
 class Spell;
 
+//pet attack distance
+typedef std::vector<std::pair<Unit*, Spell*>> TargetSpellList;
+
 class PetAI : public CreatureAI
 {
     public:

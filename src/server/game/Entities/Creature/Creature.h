@@ -658,6 +658,8 @@ class Creature : public Unit, public GridObject<Creature>, public MovableMapObje
                 return m_charmInfo->GetCharmSpell(pos)->GetAction();
         }
 
+        float GetPetChaseDistance() const;
+
         void SetPosition(float x, float y, float z, float o);
         void SetPosition(const Position &pos) { SetPosition(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), pos.GetOrientation()); }
 

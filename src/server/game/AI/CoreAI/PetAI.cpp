@@ -563,7 +563,14 @@ void PetAI::DoAttack(Unit* target, bool chase)
 
         if (chase)
         {
-            me->GetMotionMaster()->MoveChase(target, !_canMeleeAttack() ? 20.0f: 0.0f, me->GetAngle(target));
+            //me->GetMotionMaster()->MoveChase(target, !_canMeleeAttack() ? 20.0f: 0.0f, me->GetAngle(target));
+
+            //pet distance attack
+            bool oldCmdAttack = me->GetCharmInfo()->IsCommandAttack();
+            ClearCharmInfoFlags();
+            me->GetCharmInfo()->SetIsCommandAttack(oldCmdAttack);
+            me->GetMotionMaster()->Clear();
+            me->GetMotionMaster()->MoveChase(target, me->GetPetChaseDistance());
         }
         else // (Stay && ((Aggressive || Defensive) && In Melee Range)))
         {
