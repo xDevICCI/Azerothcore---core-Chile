@@ -8501,6 +8501,9 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                 }
                 // Nature's Guardian
                 else if (auraSpellInfo->SpellIconID == 2013)
+                // Mana Surge wotlk.cavernoftime.com/spell=23572
+                // After casting your Healing Wave or Lesser Healing Wave spell, gives you a 25% chance to gain Mana equal to 35% of the base cost of the spell.
+                case 23572:
                 {
                     // Check health condition - should drop to less 30% (damage deal after this!)
                     if (!HealthBelowPctDamaged(30, damage))
