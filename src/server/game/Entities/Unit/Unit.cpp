@@ -6524,6 +6524,23 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
         }
         case SPELLFAMILY_PRIEST:
         {
+            // Divine Aegis
+            if (dummySpell->Id == 47515)
+            {
+                if (!target)
+                    return false;
+
+                if (!procSpell)
+                    return false;
+
+                if (procSpell->Id != 596 && !(procEx & PROC_EX_CRITICAL_HIT))
+                    return false;
+
+                basepoints0 = CalculatePct(int32(damage), triggerAmount);
+
+                triggered_spell_id = 47753;
+                break;
+            }
             // Body and Soul
             if (dummySpell->SpellIconID == 2218)
             {
