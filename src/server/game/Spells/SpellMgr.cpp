@@ -3744,6 +3744,7 @@ void SpellMgr::LoadDbcDataCorrections()
             spellInfo->EffectRadiusIndex[0] = EFFECT_RADIUS_10_YARDS;
             spellInfo->EffectRadiusIndex[1] = EFFECT_RADIUS_10_YARDS;
             spellInfo->speed = 100;
+            //spellInfo->speed = 100;
             break;
 
         /////////////////////////////////
