@@ -357,8 +357,17 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recvData)
             bool receiverIsPlayer = AccountMgr::IsPlayerAccount(receiver ? receiver->GetSession()->GetSecurity() : SEC_PLAYER);
             if (!receiver || (senderIsPlayer && !receiverIsPlayer && !receiver->isAcceptWhispers() && !receiver->IsInWhisperWhiteList(sender->GetGUID())))
             {
-                SendPlayerNotFoundNotice(to);
-                return;
+                // If Fake WHO List system on then show player DND 
+                    if (sWorld->getBoolConfig(CONFIG_FAKE_WHO_LIST))
+                     {
+                        sWorld->SendWorldText(LANG_NOT_WHISPER);
+                        return;
+                     }
+                    else
+                    {
+                        SendPlayerNotFoundNotice(to);
+                        return;
+                    }
             }
 
             if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHAT) && senderIsPlayer && receiverIsPlayer)
